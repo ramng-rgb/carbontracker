@@ -43,15 +43,15 @@ export function renderTracker(container, userState, onAddLog, onClearLogs) {
             
             <div class="habit-checklist-grid">
               ${DAILY_HABITS.map(habit => `
-                <div class="habit-log-card" data-habit-id="${habit.id}">
+                <div class="habit-log-card" data-habit-id="${habit.id}" role="button" tabindex="0" aria-label="Log activity: ${habit.name}, saves ${habit.offset} kg CO2">
                   <div class="habit-card-left">
-                    <span class="habit-emoji">${habit.icon}</span>
+                    <span class="habit-emoji" aria-hidden="true">${habit.icon}</span>
                     <div class="habit-card-info">
                       <span class="habit-card-name">${habit.name}</span>
                       <span class="habit-card-offset">-${habit.offset} kg CO₂</span>
                     </div>
                   </div>
-                  <div class="habit-log-btn"><i class="fas fa-plus"></i></div>
+                  <div class="habit-log-btn" aria-hidden="true"><i class="fas fa-plus"></i></div>
                 </div>
               `).join('')}
             </div>
@@ -143,7 +143,7 @@ export function renderTracker(container, userState, onAddLog, onClearLogs) {
 
     // 2. Checklist card logging
     container.querySelectorAll('.habit-log-card').forEach(card => {
-      card.addEventListener('click', () => {
+      const logHabit = () => {
         const habitId = card.getAttribute('data-habit-id');
         const habit = DAILY_HABITS.find(h => h.id === habitId);
         if (habit) {
@@ -156,6 +156,13 @@ export function renderTracker(container, userState, onAddLog, onClearLogs) {
             timestamp: new Date().toISOString()
           });
           drawUI();
+        }
+      };
+      card.addEventListener('click', logHabit);
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          logHabit();
         }
       });
     });

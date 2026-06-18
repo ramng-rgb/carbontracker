@@ -63,8 +63,8 @@ export function renderIotGrid(container, userState, onToggleEcoThermostat) {
           <h3 class="glass-card-title"><span class="title-icon">🌡️</span> Smart Thermostat</h3>
           <p style="font-size:12px; color: var(--text-secondary);">Simulating linked smart home climate control devices.</p>
           
-          <div class="dial-circle-outer ${ecoMode ? 'eco-mode' : ''}" id="thermostat-dial">
-            <span class="eco-indicator-leaf">🌱</span>
+          <div class="dial-circle-outer ${ecoMode ? 'eco-mode' : ''}" id="thermostat-dial" role="slider" aria-valuenow="${temp}" aria-valuemin="50" aria-valuemax="90" aria-label="Smart Thermostat dial" tabindex="0">
+            <span class="eco-indicator-leaf" aria-hidden="true">🌱</span>
             <div class="dial-temp-display">
               <span class="dial-temp-num" id="dial-temp-num">${temp}<span class="dial-temp-unit">°F</span></span>
               <span class="dial-mode-text">${ecoMode ? 'Eco Mode Active' : 'Manual Mode'}</span>
@@ -218,6 +218,27 @@ export function renderIotGrid(container, userState, onToggleEcoThermostat) {
           ecoMode = false;
         }
         updateEcoState(ecoMode);
+      });
+    }
+
+    const dial = container.querySelector('#thermostat-dial');
+    if (dial) {
+      dial.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown' || e.key === 'ArrowLeft') {
+          e.preventDefault();
+          temp--;
+          if (temp <= 68) {
+            ecoMode = true;
+          }
+          updateEcoState(ecoMode);
+        } else if (e.key === 'ArrowUp' || e.key === 'ArrowRight') {
+          e.preventDefault();
+          temp++;
+          if (temp > 70) {
+            ecoMode = false;
+          }
+          updateEcoState(ecoMode);
+        }
       });
     }
 

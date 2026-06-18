@@ -74,7 +74,7 @@ export function renderMarketplace(container, userState, onPurchaseOffset) {
       <!-- Checkout Modal Overlay (Premium checkout simulation) -->
       <div class="modal-overlay" id="checkout-modal-overlay">
         <div class="modal-content" id="checkout-modal-content">
-          <button class="modal-close-btn" id="btn-close-checkout">×</button>
+          <button class="modal-close-btn" id="btn-close-checkout" aria-label="Close checkout modal">×</button>
           
           <!-- STEP 1: Form & Custom Offset slider -->
           <div id="checkout-step-form" style="display: ${checkoutStep === 'form' ? 'block' : 'none'};">

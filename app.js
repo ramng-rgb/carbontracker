@@ -128,11 +128,19 @@ class TerrasenseApp {
     window.addEventListener('hashchange', handleRoute);
     window.addEventListener('DOMContentLoaded', handleRoute);
 
-    // Sidebar navigation clicks
+    // Sidebar navigation clicks and keyboard support
     document.querySelectorAll('.sidebar-menu-item').forEach(item => {
-      item.addEventListener('click', () => {
+      const triggerRoute = () => {
         const route = item.getAttribute('data-route');
         if (route) window.location.hash = route;
+      };
+      
+      item.addEventListener('click', triggerRoute);
+      item.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          triggerRoute();
+        }
       });
     });
 

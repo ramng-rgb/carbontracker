@@ -27,34 +27,34 @@
         <span class="pro-badge">Pro</span>
       </div>
       
-      <ul class="sidebar-menu">
-        <li class="sidebar-menu-item active" data-route="#dashboard" id="menu-dashboard">
-          <span class="menu-icon">📊</span> Overview
+      <ul class="sidebar-menu" role="menu" aria-label="Main Navigation">
+        <li class="sidebar-menu-item active" data-route="#dashboard" id="menu-dashboard" role="menuitem" tabindex="0" aria-label="Overview Dashboard">
+          <span class="menu-icon" aria-hidden="true">📊</span> Overview
         </li>
-        <li class="sidebar-menu-item" data-route="#calculator" id="menu-calculator">
-          <span class="menu-icon">🎛️</span> Calculator
+        <li class="sidebar-menu-item" data-route="#calculator" id="menu-calculator" role="menuitem" tabindex="0" aria-label="Footprint Calculator">
+          <span class="menu-icon" aria-hidden="true">🎛️</span> Calculator
         </li>
-        <li class="sidebar-menu-item" data-route="#tracker" id="menu-tracker">
-          <span class="menu-icon">✏️</span> Habit Tracker
+        <li class="sidebar-menu-item" data-route="#tracker" id="menu-tracker" role="menuitem" tabindex="0" aria-label="Daily Habit Tracker">
+          <span class="menu-icon" aria-hidden="true">✏️</span> Habit Tracker
         </li>
-        <li class="sidebar-menu-item" data-route="#aiChatTab" id="menu-aichat">
-          <span class="menu-icon">🤖</span> AI Eco-Coach
+        <li class="sidebar-menu-item" data-route="#aiChatTab" id="menu-aichat" role="menuitem" tabindex="0" aria-label="AI Eco-Coach Chat">
+          <span class="menu-icon" aria-hidden="true">🤖</span> AI Eco-Coach
         </li>
-        <li class="sidebar-menu-item" data-route="#planner" id="menu-planner">
-          <span class="menu-icon">🌱</span> Action Planner
+        <li class="sidebar-menu-item" data-route="#planner" id="menu-planner" role="menuitem" tabindex="0" aria-label="Eco Action Planner">
+          <span class="menu-icon" aria-hidden="true">🌱</span> Action Planner
         </li>
         
-        <div class="sidebar-divider"></div>
+        <div class="sidebar-divider" role="separator"></div>
         <div class="sidebar-pro-header">Pro Features</div>
         
-        <li class="sidebar-menu-item" data-route="#marketplace" id="menu-marketplace">
-          <span class="menu-icon">🛍️</span> Offset Market
+        <li class="sidebar-menu-item" data-route="#marketplace" id="menu-marketplace" role="menuitem" tabindex="0" aria-label="Offset credits Marketplace">
+          <span class="menu-icon" aria-hidden="true">🛍️</span> Offset Market
         </li>
-        <li class="sidebar-menu-item" data-route="#iotGrid" id="menu-iot">
-          <span class="menu-icon">⚡</span> Smart IoT Grid
+        <li class="sidebar-menu-item" data-route="#iotGrid" id="menu-iot" role="menuitem" tabindex="0" aria-label="Smart IoT Grid Simulator">
+          <span class="menu-icon" aria-hidden="true">⚡</span> Smart IoT Grid
         </li>
-        <li class="sidebar-menu-item" data-route="#analytics" id="menu-analytics">
-          <span class="menu-icon">📈</span> Analytics
+        <li class="sidebar-menu-item" data-route="#analytics" id="menu-analytics" role="menuitem" tabindex="0" aria-label="Footprint Analytics Charts">
+          <span class="menu-icon" aria-hidden="true">📈</span> Analytics
         </li>
       </ul>
       
@@ -80,19 +80,19 @@
   <!-- FLOATING CHATBOT COMPONENT (TerraAI Coach) -->
   <div class="chatbot-widget">
     <!-- Popup window -->
-    <div class="chat-popup" id="chat-popup">
+    <div class="chat-popup" id="chat-popup" role="dialog" aria-label="TerraAI Eco-Coach Chatbot" aria-modal="false">
       <div class="chat-header">
         <div class="chat-header-left">
-          <div class="chat-bot-avatar">🤖</div>
+          <div class="chat-bot-avatar" aria-hidden="true">🤖</div>
           <div>
             <div class="chat-header-title">TerraAI Eco-Coach</div>
             <div class="chat-header-subtitle">● Active & Guiding</div>
           </div>
         </div>
-        <button class="chat-close-x" id="chat-close">×</button>
+        <button class="chat-close-x" id="chat-close" aria-label="Close chatbot dialog">×</button>
       </div>
       
-      <div class="chat-messages-container" id="chat-stream">
+      <div class="chat-messages-container" id="chat-stream" aria-live="polite" aria-label="Chat message log">
         <!-- Dialog messages injected here -->
       </div>
       
@@ -104,8 +104,8 @@
       </div>
       
       <div class="chat-input-bar">
-        <input type="text" class="chat-input" id="chat-input-field" placeholder="Ask about 'diet' or 'home energy'...">
-        <button class="chat-send-btn" id="chat-send"><i class="fas fa-paper-plane"></i></button>
+        <input type="text" class="chat-input" id="chat-input-field" placeholder="Ask about 'diet' or 'home energy'..." aria-label="Ask TerraAI Eco-Coach">
+        <button class="chat-send-btn" id="chat-send" aria-label="Send message"><i class="fas fa-paper-plane"></i></button>
       </div>
     </div>
     

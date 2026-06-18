@@ -86,7 +86,7 @@ export function renderPlanner(container, userState, onCommitPledge, onRemovePled
       <!-- Audit Report Modal (Terrasense Pro Premium Modal) -->
       <div class="modal-overlay" id="audit-modal-overlay">
         <div class="modal-content audit-modal-content" id="print-section">
-          <button class="modal-close-btn" id="btn-close-audit">×</button>
+          <button class="modal-close-btn" id="btn-close-audit" aria-label="Close audit details">×</button>
           
           <div class="audit-report-container">
             <div class="audit-header">

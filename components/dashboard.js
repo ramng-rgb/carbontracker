@@ -100,7 +100,7 @@ export function renderDashboard(container, userState, onLogHabit) {
         <h3 class="glass-card-title"><span class="title-icon">📊</span> Annual Footprint</h3>
         
         <div class="gauge-container">
-          <svg class="gauge-svg" viewBox="0 0 180 180">
+          <svg class="gauge-svg" viewBox="0 0 180 180" role="img" aria-label="Annual carbon footprint gauge showing ${annualCO2 > 0 ? annualCO2 : 0} Tonnes CO₂">
             <circle class="gauge-track" cx="90" cy="90" r="80"></circle>
             <circle class="gauge-fill" id="dashboard-gauge-fill" cx="90" cy="90" r="80" style="stroke-dashoffset: 502;"></circle>
           </svg>
@@ -212,9 +212,9 @@ export function renderDashboard(container, userState, onLogHabit) {
           ${badgeConfig.map(badge => {
             const isUnlocked = earnedBadges.includes(badge.id);
             return `
-              <div class="badge-item ${isUnlocked ? 'unlocked' : ''}" title="${badge.desc}">
-                <div class="badge-circle">${badge.icon}</div>
-                <div class="badge-name">${badge.name}</div>
+              <div class="badge-item ${isUnlocked ? 'unlocked' : ''}" role="img" tabindex="0" aria-label="Badge: ${badge.name}. Status: ${isUnlocked ? 'Unlocked' : 'Locked'}. Description: ${badge.desc}">
+                <div class="badge-circle" aria-hidden="true">${badge.icon}</div>
+                <div class="badge-name" aria-hidden="true">${badge.name}</div>
               </div>
             `;
           }).join('')}

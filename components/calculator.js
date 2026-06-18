@@ -93,31 +93,31 @@ export function renderCalculator(container, userState, onUpdate) {
             </div>
 
             <div class="form-group">
-              <label class="form-label">Primary Vehicle Type</label>
-              <div class="options-grid">
-                <div class="option-select-card ${calcData.carType === 'sedan' ? 'selected' : ''}" data-val="sedan">
-                  <span class="option-emoji">🚗</span>
+              <label class="form-label" id="vehicle-group-label">Primary Vehicle Type</label>
+              <div class="options-grid" role="radiogroup" aria-labelledby="vehicle-group-label">
+                <div class="option-select-card ${calcData.carType === 'sedan' ? 'selected' : ''}" data-val="sedan" role="radio" aria-checked="${calcData.carType === 'sedan' ? 'true' : 'false'}" tabindex="0" aria-label="Gas Sedan: Average fuel-powered passenger car">
+                  <span class="option-emoji" aria-hidden="true">🚗</span>
                   <div class="option-text-wrapper">
                     <span class="option-name">Gas Sedan</span>
                     <span class="option-desc">Average fuel-powered passenger car</span>
                   </div>
                 </div>
-                <div class="option-select-card ${calcData.carType === 'suv' ? 'selected' : ''}" data-val="suv">
-                  <span class="option-emoji">🚙</span>
+                <div class="option-select-card ${calcData.carType === 'suv' ? 'selected' : ''}" data-val="suv" role="radio" aria-checked="${calcData.carType === 'suv' ? 'true' : 'false'}" tabindex="0" aria-label="Gas SUV or Truck: Larger gasoline utility vehicles">
+                  <span class="option-emoji" aria-hidden="true">🚙</span>
                   <div class="option-text-wrapper">
                     <span class="option-name">Gas SUV / Truck</span>
                     <span class="option-desc">Larger gasoline utility vehicles</span>
                   </div>
                 </div>
-                <div class="option-select-card ${calcData.carType === 'hybrid' ? 'selected' : ''}" data-val="hybrid">
-                  <span class="option-emoji">🔌</span>
+                <div class="option-select-card ${calcData.carType === 'hybrid' ? 'selected' : ''}" data-val="hybrid" role="radio" aria-checked="${calcData.carType === 'hybrid' ? 'true' : 'false'}" tabindex="0" aria-label="Hybrid Vehicle: Combines electricity and gasoline power">
+                  <span class="option-emoji" aria-hidden="true">🔌</span>
                   <div class="option-text-wrapper">
                     <span class="option-name">Hybrid Vehicle</span>
                     <span class="option-desc">Combines electricity and gasoline power</span>
                   </div>
                 </div>
-                <div class="option-select-card ${calcData.carType === 'electric' ? 'selected' : ''}" data-val="electric">
-                  <span class="option-emoji">⚡</span>
+                <div class="option-select-card ${calcData.carType === 'electric' ? 'selected' : ''}" data-val="electric" role="radio" aria-checked="${calcData.carType === 'electric' ? 'true' : 'false'}" tabindex="0" aria-label="Electric Car EV: Zero tailpipe emissions, grid-charged">
+                  <span class="option-emoji" aria-hidden="true">⚡</span>
                   <div class="option-text-wrapper">
                     <span class="option-name">Electric Car (EV)</span>
                     <span class="option-desc">Zero tailpipe emissions, grid-charged</span>
@@ -183,31 +183,31 @@ export function renderCalculator(container, userState, onUpdate) {
             </div>
 
             <div class="form-group">
-              <label class="form-label">Select Your Diet Profile</label>
-              <div class="options-grid" style="grid-template-columns: 1fr;">
-                <div class="option-select-card ${calcData.dietType === 'meatHeavy' ? 'selected' : ''}" data-diet="meatHeavy">
-                  <span class="option-emoji">🥩</span>
+              <label class="form-label" id="diet-group-label">Select Your Diet Profile</label>
+              <div class="options-grid" style="grid-template-columns: 1fr;" role="radiogroup" aria-labelledby="diet-group-label">
+                <div class="option-select-card ${calcData.dietType === 'meatHeavy' ? 'selected' : ''}" data-diet="meatHeavy" role="radio" aria-checked="${calcData.dietType === 'meatHeavy' ? 'true' : 'false'}" tabindex="0" aria-label="Meat-Lover: Frequent beef, pork, or poultry meals (~2.9 tonnes CO₂e/yr)">
+                  <span class="option-emoji" aria-hidden="true">🥩</span>
                   <div class="option-text-wrapper">
                     <span class="option-name">Meat-Lover</span>
                     <span class="option-desc">Frequent beef, pork, or poultry meals (~2.9 tonnes CO₂e/yr)</span>
                   </div>
                 </div>
-                <div class="option-select-card ${calcData.dietType === 'average' ? 'selected' : ''}" data-diet="average">
-                  <span class="option-emoji">🍗</span>
+                <div class="option-select-card ${calcData.dietType === 'average' ? 'selected' : ''}" data-diet="average" role="radio" aria-checked="${calcData.dietType === 'average' ? 'true' : 'false'}" tabindex="0" aria-label="Balanced or Flexitarian: Moderate meat/poultry, some plant meals (~2.0 tonnes CO₂e/yr)">
+                  <span class="option-emoji" aria-hidden="true">🍗</span>
                   <div class="option-text-wrapper">
                     <span class="option-name">Balanced / Flexitarian</span>
                     <span class="option-desc">Moderate meat/poultry, some plant meals (~2.0 tonnes CO₂e/yr)</span>
                   </div>
                 </div>
-                <div class="option-select-card ${calcData.dietType === 'vegetarian' ? 'selected' : ''}" data-diet="vegetarian">
-                  <span class="option-emoji">🧀</span>
+                <div class="option-select-card ${calcData.dietType === 'vegetarian' ? 'selected' : ''}" data-diet="vegetarian" role="radio" aria-checked="${calcData.dietType === 'vegetarian' ? 'true' : 'false'}" tabindex="0" aria-label="Vegetarian: No meat, includes dairy products and eggs (~1.3 tonnes CO₂e/yr)">
+                  <span class="option-emoji" aria-hidden="true">🧀</span>
                   <div class="option-text-wrapper">
                     <span class="option-name">Vegetarian</span>
                     <span class="option-desc">No meat, includes dairy products and eggs (~1.3 tonnes CO₂e/yr)</span>
                   </div>
                 </div>
-                <div class="option-select-card ${calcData.dietType === 'vegan' ? 'selected' : ''}" data-diet="vegan">
-                  <span class="option-emoji">🥗</span>
+                <div class="option-select-card ${calcData.dietType === 'vegan' ? 'selected' : ''}" data-diet="vegan" role="radio" aria-checked="${calcData.dietType === 'vegan' ? 'true' : 'false'}" tabindex="0" aria-label="Vegan: 100% plant-based diet, no animal products (~0.9 tonnes CO₂e/yr)">
+                  <span class="option-emoji" aria-hidden="true">🥗</span>
                   <div class="option-text-wrapper">
                     <span class="option-name">Vegan</span>
                     <span class="option-desc">100% plant-based diet, no animal products (~0.9 tonnes CO₂e/yr)</span>
@@ -225,24 +225,24 @@ export function renderCalculator(container, userState, onUpdate) {
             </div>
 
             <div class="form-group">
-              <label class="form-label">Select Your Shopping Frequency</label>
-              <div class="options-grid" style="grid-template-columns: 1fr;">
-                <div class="option-select-card ${calcData.shoppingType === 'heavy' ? 'selected' : ''}" data-shop="heavy">
-                  <span class="option-emoji">📦</span>
+              <label class="form-label" id="shopping-group-label">Select Your Shopping Frequency</label>
+              <div class="options-grid" style="grid-template-columns: 1fr;" role="radiogroup" aria-labelledby="shopping-group-label">
+                <div class="option-select-card ${calcData.shoppingType === 'heavy' ? 'selected' : ''}" data-shop="heavy" role="radio" aria-checked="${calcData.shoppingType === 'heavy' ? 'true' : 'false'}" tabindex="0" aria-label="High Consumer: Frequent online purchases, latest electronics, fast fashion (~2.4 tonnes CO₂e/yr)">
+                  <span class="option-emoji" aria-hidden="true">📦</span>
                   <div class="option-text-wrapper">
                     <span class="option-name">High Consumer</span>
                     <span class="option-desc">Frequent online purchases, latest electronics, fast fashion (~2.4 tonnes CO₂e/yr)</span>
                   </div>
                 </div>
-                <div class="option-select-card ${calcData.shoppingType === 'moderate' ? 'selected' : ''}" data-shop="moderate">
-                  <span class="option-emoji">🛒</span>
+                <div class="option-select-card ${calcData.shoppingType === 'moderate' ? 'selected' : ''}" data-shop="moderate" role="radio" aria-checked="${calcData.shoppingType === 'moderate' ? 'true' : 'false'}" tabindex="0" aria-label="Average Consumer: Moderate shopping habits, replacing goods only when required (~1.2 tonnes CO₂e/yr)">
+                  <span class="option-emoji" aria-hidden="true">🛒</span>
                   <div class="option-text-wrapper">
                     <span class="option-name">Average Consumer</span>
                     <span class="option-desc">Moderate shopping habits, replacing goods only when required (~1.2 tonnes CO₂e/yr)</span>
                   </div>
                 </div>
-                <div class="option-select-card ${calcData.shoppingType === 'light' ? 'selected' : ''}" data-shop="light">
-                  <span class="option-emoji">🎒</span>
+                <div class="option-select-card ${calcData.shoppingType === 'light' ? 'selected' : ''}" data-shop="light" role="radio" aria-checked="${calcData.shoppingType === 'light' ? 'true' : 'false'}" tabindex="0" aria-label="Minimalist: Rarely buy new items, focus on recycling and secondhand products (~0.5 tonnes CO₂e/yr)">
+                  <span class="option-emoji" aria-hidden="true">🎒</span>
                   <div class="option-text-wrapper">
                     <span class="option-name">Minimalist</span>
                     <span class="option-desc">Rarely buy new items, focus on recycling and secondhand products (~0.5 tonnes CO₂e/yr)</span>
@@ -290,28 +290,49 @@ export function renderCalculator(container, userState, onUpdate) {
 
     // Step 1: Vehicle Option Selection Cards
     container.querySelectorAll('.option-select-card[data-val]').forEach(card => {
-      card.addEventListener('click', () => {
+      const selectVehicle = () => {
         calcData.carType = card.getAttribute('data-val');
         drawUI();
         onUpdate(calculateScore(), false);
+      };
+      card.addEventListener('click', selectVehicle);
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          selectVehicle();
+        }
       });
     });
 
     // Step 3: Diet Option Selection Cards
     container.querySelectorAll('.option-select-card[data-diet]').forEach(card => {
-      card.addEventListener('click', () => {
+      const selectDiet = () => {
         calcData.dietType = card.getAttribute('data-diet');
         drawUI();
         onUpdate(calculateScore(), false);
+      };
+      card.addEventListener('click', selectDiet);
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          selectDiet();
+        }
       });
     });
 
     // Step 4: Shopping Option Selection Cards
     container.querySelectorAll('.option-select-card[data-shop]').forEach(card => {
-      card.addEventListener('click', () => {
+      const selectShopping = () => {
         calcData.shoppingType = card.getAttribute('data-shop');
         drawUI();
         onUpdate(calculateScore(), false);
+      };
+      card.addEventListener('click', selectShopping);
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          selectShopping();
+        }
       });
     });
 

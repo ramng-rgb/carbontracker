@@ -1,0 +1,11 @@
+.git
+.system_generated
+.tempmediaStorage
+browser
+node_modules
+google-cloud-sdk.tar.gz
+google-cloud-cli.tar.gz
+task.md
+implementation_plan.md
+walkthrough.md
+*.log

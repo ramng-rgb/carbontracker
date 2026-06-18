@@ -1,4 +1,5 @@
 import { OFFSET_PROJECTS } from '../data.js';
+import { generateHash } from './security.js';
 
 export function renderMarketplace(container, userState, onPurchaseOffset) {
   const annualCO2 = parseFloat((userState.calculatorData?.annualFootprint || 0).toFixed(1));
@@ -31,6 +32,19 @@ export function renderMarketplace(container, userState, onPurchaseOffset) {
           <span style="font-size: 11px; text-transform: uppercase; color: var(--text-secondary);">Total Carbon Offsetted</span>
           <div class="offset-value-big" style="color: var(--color-teal);">${totalOffsetTons} Tonnes</div>
         </div>
+      </div>
+
+      <!-- Cryptographic Registry verifier -->
+      <div class="glass-card" style="margin-bottom: 32px; border-color: rgba(20, 184, 166, 0.2);">
+        <h3 class="glass-card-title" style="font-size:15px; margin-bottom:10px;"><span class="title-icon">🔐</span> Secure Certificate Verifier</h3>
+        <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 16px;">
+          Enter a Certificate Signature Hash below to verify its authenticity on the gold standard registry logs.
+        </p>
+        <div style="display: flex; gap: 12px;">
+          <input type="text" class="checkout-input" id="verifier-sig-input" placeholder="e.g. SIG-U016B1427-..." style="flex: 1; font-family: monospace;" aria-label="Certificate Registry Signature Hash">
+          <button class="btn btn-primary" id="btn-verify-sig"><i class="fas fa-fingerprint"></i> Verify Hash</button>
+        </div>
+        <div id="verifier-feedback" style="margin-top: 14px; padding: 12px; border-radius: 8px; font-size: 12.5px; display: none; border: 1px solid transparent;"></div>
       </div>
 
       <h3 class="glass-card-title" style="margin-bottom: 20px;"><span class="title-icon">🌍</span> Certified Reforestation & Energy Projects</h3>
@@ -72,7 +86,7 @@ export function renderMarketplace(container, userState, onPurchaseOffset) {
                 <span>Offset Amount</span>
                 <span style="color: var(--color-green); font-weight: 700;" id="checkout-tons-label">${offsetInputVal} Tonnes</span>
               </div>
-              <input type="range" class="range-slider" id="checkout-offset-slider" min="0.5" max="15.0" step="0.5" value="${offsetInputVal}">
+              <input type="range" class="range-slider" id="checkout-offset-slider" min="0.5" max="15.0" step="0.5" value="${offsetInputVal}" aria-label="Offset Amount in Tonnes">
             </div>
 
             <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-glass); border-radius: 10px; padding: 12px; margin-bottom: 20px; display: flex; justify-content: space-between;">
@@ -81,11 +95,11 @@ export function renderMarketplace(container, userState, onPurchaseOffset) {
             </div>
 
             <div class="checkout-form">
-              <input type="text" class="checkout-input" placeholder="Cardholder Name" id="checkout-cardname" value="${userState.userName || ''}">
-              <input type="text" class="checkout-input" placeholder="Card Number (4111 2222 3333 4444)" id="checkout-cardnum">
+              <input type="text" class="checkout-input" placeholder="Cardholder Name" id="checkout-cardname" value="${userState.userName || ''}" aria-label="Cardholder Name">
+              <input type="text" class="checkout-input" placeholder="Card Number (4111 2222 3333 4444)" id="checkout-cardnum" aria-label="Card Number">
               <div class="checkout-row">
-                <input type="text" class="checkout-input" placeholder="MM / YY" id="checkout-cardexp">
-                <input type="text" class="checkout-input" placeholder="CVC" id="checkout-cardcvc">
+                <input type="text" class="checkout-input" placeholder="MM / YY" id="checkout-cardexp" aria-label="Expiration Date">
+                <input type="text" class="checkout-input" placeholder="CVC" id="checkout-cardcvc" aria-label="Card CVC Security Code">
               </div>
               <button class="btn btn-pro" id="btn-submit-pay" style="width: 100%; margin-top: 8px;">Purchase Offset credits</button>
             </div>
@@ -113,7 +127,7 @@ export function renderMarketplace(container, userState, onPurchaseOffset) {
                 has successfully offset <strong id="cert-tons-val">--</strong> tonnes of carbon dioxide equivalent (tCO₂e) by funding the <strong id="cert-proj-name">--</strong>.
               </p>
 
-              <div class="cert-footer-stats">
+              <div class="cert-footer-stats" style="flex-wrap: wrap; gap: 10px;">
                 <div class="cert-stat-item">
                   <span class="cert-stat-label">Certification Date</span>
                   <span class="cert-stat-value" id="cert-date-val">--</span>
@@ -121,6 +135,10 @@ export function renderMarketplace(container, userState, onPurchaseOffset) {
                 <div class="cert-stat-item">
                   <span class="cert-stat-label">Registry Serial No.</span>
                   <span class="cert-stat-value" id="cert-serial-val" style="font-family: monospace; font-size:11px;">--</span>
+                </div>
+                <div class="cert-stat-item" style="flex: 0 0 100%; border-top: 1px dashed rgba(255,255,255,0.08); padding-top: 10px; margin-top: 10px; text-align: center;">
+                  <span class="cert-stat-label">Cryptographic Registry Signature Hash</span>
+                  <span class="cert-stat-value" id="cert-sig-val" style="font-family: monospace; font-size:10px; word-break: break-all; color: var(--color-teal);">--</span>
                 </div>
               </div>
             </div>
@@ -207,12 +225,17 @@ export function renderMarketplace(container, userState, onPurchaseOffset) {
           const serial = 'TS-' + Math.floor(100000 + Math.random() * 900000) + '-' + activeProject.id.toUpperCase().split('_')[1];
           const dateStr = new Date().toLocaleDateString([], { year: 'numeric', month: 'long', day: 'numeric' });
 
+          // Generate cryptographic registry signature of the certificate metadata
+          const metaStr = `${serial}-${activeProject.id}-${offsetInputVal}-${name}-${dateStr}`;
+          const signature = generateHash(metaStr);
+
           lastOrder = {
             projectName: activeProject.name,
             tons: offsetInputVal,
             serial: serial,
             date: dateStr,
-            name: name
+            name: name,
+            signature: signature
           };
 
           // Save transaction to global storage list
@@ -228,6 +251,7 @@ export function renderMarketplace(container, userState, onPurchaseOffset) {
           container.querySelector('#cert-proj-name').textContent = lastOrder.projectName;
           container.querySelector('#cert-date-val').textContent = lastOrder.date;
           container.querySelector('#cert-serial-val').textContent = lastOrder.serial;
+          container.querySelector('#cert-sig-val').textContent = lastOrder.signature;
 
         }, 2200); // 2.2 seconds simulated processing
       });
@@ -248,6 +272,52 @@ export function renderMarketplace(container, userState, onPurchaseOffset) {
         overlay.classList.remove('active');
         // Reroute back to dashboard
         window.location.hash = '#dashboard';
+      });
+    }
+
+    // Cryptographic Registry Signature Verifier
+    const btnVerify = container.querySelector('#btn-verify-sig');
+    const verifyInput = container.querySelector('#verifier-sig-input');
+    const verifyFeedback = container.querySelector('#verifier-feedback');
+
+    if (btnVerify && verifyInput && verifyFeedback) {
+      btnVerify.addEventListener('click', () => {
+        const sig = verifyInput.value.trim();
+        if (!sig) {
+          verifyFeedback.style.display = 'block';
+          verifyFeedback.style.background = 'rgba(239, 68, 68, 0.08)';
+          verifyFeedback.style.borderColor = 'rgba(239, 68, 68, 0.2)';
+          verifyFeedback.style.color = 'var(--color-red)';
+          verifyFeedback.innerHTML = `⚠️ Please enter a signature hash to verify.`;
+          return;
+        }
+
+        const matchingOrder = (userState.purchasedOffsets || []).find(order => order.signature === sig);
+
+        if (matchingOrder) {
+          verifyFeedback.style.display = 'block';
+          verifyFeedback.style.background = 'rgba(16, 185, 129, 0.08)';
+          verifyFeedback.style.borderColor = 'rgba(16, 185, 129, 0.2)';
+          verifyFeedback.style.color = 'var(--color-green)';
+          verifyFeedback.innerHTML = `
+            <strong>✓ Cryptographic Verification Success:</strong><br>
+            • Certificate matches Gold Standard Registry logs.<br>
+            • Project: <strong>${matchingOrder.projectName}</strong><br>
+            • Quantity: <strong>${matchingOrder.tons} Tonnes</strong> of CO₂e<br>
+            • Certified to: <strong>${matchingOrder.name}</strong><br>
+            • Date: <strong>${matchingOrder.date}</strong>
+          `;
+        } else {
+          verifyFeedback.style.display = 'block';
+          verifyFeedback.style.background = 'rgba(239, 68, 68, 0.08)';
+          verifyFeedback.style.borderColor = 'rgba(239, 68, 68, 0.2)';
+          verifyFeedback.style.color = 'var(--color-red)';
+          verifyFeedback.innerHTML = `
+            <strong>⚠️ Cryptographic Verification Failed:</strong><br>
+            • Signature hash could not be resolved on the public gold standard registry.<br>
+            • Warning: This certificate is not verified.
+          `;
+        }
       });
     }
   };

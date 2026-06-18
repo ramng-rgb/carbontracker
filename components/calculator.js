@@ -127,7 +127,7 @@ export function renderCalculator(container, userState, onUpdate) {
             </div>
 
             <div class="form-group">
-              <label class="form-label">
+              <label class="form-label" for="carMil">
                 <span>Annual Vehicle Mileage</span>
                 <span class="label-val" id="val-carMil">${calcData.carMil.toLocaleString()} miles</span>
               </label>
@@ -135,7 +135,7 @@ export function renderCalculator(container, userState, onUpdate) {
             </div>
 
             <div class="form-group">
-              <label class="form-label">
+              <label class="form-label" for="transitMil">
                 <span>Annual Public Transit (Bus/Train) Mileage</span>
                 <span class="label-val" id="val-transitMil">${calcData.transitMil.toLocaleString()} miles</span>
               </label>
@@ -143,7 +143,7 @@ export function renderCalculator(container, userState, onUpdate) {
             </div>
 
             <div class="form-group">
-              <label class="form-label">
+              <label class="form-label" for="flightHrs">
                 <span>Annual Flight Time</span>
                 <span class="label-val" id="val-flightHrs">${calcData.flightHrs} hours</span>
               </label>
@@ -159,7 +159,7 @@ export function renderCalculator(container, userState, onUpdate) {
             </div>
 
             <div class="form-group">
-              <label class="form-label">
+              <label class="form-label" for="electricKwh">
                 <span>Monthly Electricity Consumption</span>
                 <span class="label-val" id="val-electricKwh">${calcData.electricKwh} kWh</span>
               </label>
@@ -167,7 +167,7 @@ export function renderCalculator(container, userState, onUpdate) {
             </div>
 
             <div class="form-group">
-              <label class="form-label">
+              <label class="form-label" for="gasTherms">
                 <span>Monthly Natural Gas Usage</span>
                 <span class="label-val" id="val-gasTherms">${calcData.gasTherms} Therms</span>
               </label>

@@ -41,7 +41,7 @@ export function renderAiChatTab(container, userState, onSaveState) {
 
           <!-- Input bar -->
           <div class="nlp-log-bar" style="margin-bottom: 0;">
-            <input type="text" class="nlp-input" id="tab-chat-input" placeholder="Type a live question (e.g. 'What is the footprint of beef vs tofu?')...">
+            <input type="text" class="nlp-input" id="tab-chat-input" placeholder="Type a live question (e.g. 'What is the footprint of beef vs tofu?')..." aria-label="Type your sustainability question">
             <button class="nlp-submit" id="tab-chat-submit">Send Query</button>
           </div>
         </div>

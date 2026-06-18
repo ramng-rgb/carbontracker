@@ -27,7 +27,7 @@ export function renderTracker(container, userState, onAddLog, onClearLogs) {
             </p>
             
             <div class="nlp-log-bar">
-              <input type="text" class="nlp-input" id="nlp-logger-input" placeholder="e.g. 'I rode my bike 8 km' or 'ate vegetarian lunch and took a 5 min shower'">
+              <input type="text" class="nlp-input" id="nlp-logger-input" placeholder="e.g. 'I rode my bike 8 km' or 'ate vegetarian lunch and took a 5 min shower'" aria-label="Enter eco activity description in plain English">
               <button class="nlp-submit" id="nlp-logger-submit">Analyze & Log</button>
             </div>
 

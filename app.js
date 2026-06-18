@@ -7,6 +7,7 @@ import { renderIotGrid } from './components/iotGrid.js';
 import { renderAnalytics } from './components/analytics.js';
 import { renderAiChatTab } from './components/aiChatTab.js';
 import { getAICoachResponse } from './components/aiCoach.js';
+import { encryptPayload, decryptPayload } from './components/security.js';
 
 // Define the global application state key
 const STATE_STORAGE_KEY = 'terrasense_user_state';
@@ -44,6 +45,9 @@ class TerrasenseApp {
     const raw = localStorage.getItem(STATE_STORAGE_KEY);
     if (raw) {
       try {
+        // Try decrypting. If it is plain text JSON, fallback parser works
+        const decrypted = decryptPayload(raw);
+        if (decrypted) return decrypted;
         return JSON.parse(raw);
       } catch (e) {
         console.error("Failed parsing user state, reverting to defaults.", e);
@@ -53,7 +57,12 @@ class TerrasenseApp {
   }
 
   saveState() {
-    localStorage.setItem(STATE_STORAGE_KEY, JSON.stringify(this.state));
+    const encrypted = encryptPayload(this.state);
+    if (encrypted) {
+      localStorage.setItem(STATE_STORAGE_KEY, encrypted);
+    } else {
+      localStorage.setItem(STATE_STORAGE_KEY, JSON.stringify(this.state));
+    }
     this.initBadgeEvaluations(); // Check if any new badges were unlocked on state change
   }
 
